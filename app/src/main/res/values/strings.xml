@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Andrew Schafer Cloud Hatter</string>
+    <string name="menu_settings">Settings</string>
+    <string name="button_picture">Picture</string>
+    <string name="button_color">Color</string>
+    <string name="check_feather">Feather</string>
+    <string name="title_activity_color_select">Select a Color</string>
+    <string name="menu_reset">Reset</string>
+    <string name="menu_about">About</string>
+    <string name="about_name">Mad Hatter App\n by Dr. Charles B. Owen</string>
+    <string name="about_instructions">Open a picture from your gallery or the Internet using the Picture button. Then drag the hat with one or two fingers to put a hat on it.</string>
+    <string name="about_dlg_title">About Mad Hatter</string>
+    <string name="by">Dr. Charles B. Owen</string>
+    <string name="url_prompt">URL:</string>
+    <string name="gallery">Gallery</string>
+    <string name="url_dlg_heading">Select Picture</string>
+    <string name="izzo_url">http://www.cse.msu.edu/~ameli/izzo.jpg</string>
+    <string name="menu_save">Save to cloud&#8230;</string>
+    <string name="menu_load">Load from cloud&#8230;</string>
+    <string name="menu_delete">Delete from cloud&#8230;</string>
+    <string name="load_fm_title">Load from cloud</string>
+    <string name="dummy">Dummy</string>
+    <string name="catalog_fail">Failed to load catalog of Hattings</string>
+    <string name="loading">Loading</string>
+    <string name="loading_fail">Failed to load Hatting</string>
+</resources>
