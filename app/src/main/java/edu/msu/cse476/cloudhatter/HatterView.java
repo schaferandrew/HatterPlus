@@ -15,6 +15,7 @@ import android.view.View;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -729,5 +730,21 @@ public class HatterView extends View {
 
         });
 
+    }
+
+    public void saveXml(String name, XmlSerializer xml) throws IOException {
+        xml.startTag(null, "hatting");
+
+        xml.attribute(null, "name", name);
+        xml.attribute(null, "uri", params.imageUri != null ? params.imageUri : "");
+        xml.attribute(null, "x", Float.toString(params.hatX));
+        xml.attribute(null, "y", Float.toString(params.hatY));
+        xml.attribute(null, "angle", Float.toString(params.hatAngle));
+        xml.attribute(null, "scale", Float.toString(params.hatScale));
+        xml.attribute(null,  "color", Integer.toString(params.color));
+        xml.attribute(null, "hat", Integer.toString(params.hat));
+        xml.attribute(null, "feather", params.feather ? "yes" : "no");
+
+        xml.endTag(null,  "hatting");
     }
 }

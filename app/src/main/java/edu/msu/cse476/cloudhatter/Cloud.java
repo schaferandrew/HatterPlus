@@ -1,5 +1,6 @@
 package edu.msu.cse476.cloudhatter;
 
+import android.util.Log;
 import android.util.Xml;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,12 +11,19 @@ import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlSerializer;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.StringWriter;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 
 /**
@@ -243,5 +251,119 @@ public class Cloud {
         } catch (IOException ex) {
             return null;
         }
+    }
+
+    /**
+     * Save a hatting to the cloud.
+     * This should be run in a thread.
+     * @param name name to save under
+     * @param view view we are getting the data from
+     * @return true if successful
+     */
+    public boolean saveToCloud(String name, HatterView view) {
+        name = name.trim();
+        if(name.length() == 0) {
+            return false;
+        }
+        // Create an XML packet with the information about the current image
+        XmlSerializer xml = Xml.newSerializer();
+        StringWriter writer = new StringWriter();
+
+        try {
+            xml.setOutput(writer);
+
+            xml.startDocument("UTF-8", true);
+
+            xml.startTag(null, "hatter");
+            xml.attribute(null, "user", USER);
+            xml.attribute(null, "pw", PASSWORD);
+            xml.attribute(null, "magic", MAGIC);
+
+            view.saveXml(name, xml);
+
+            xml.endTag(null, "hatter");
+
+            xml.endDocument();
+
+        } catch (IOException e) {
+            // This won't occur when writing to a string
+            return false;
+        }
+
+        final String xmlStr = writer.toString();
+        /*
+         * Convert the XML into HTTP POST data
+         */
+        String postDataStr;
+        try {
+            postDataStr = "xml=" + URLEncoder.encode(xmlStr, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return false;
+        }
+
+        /*
+         * Send the data to the server
+         */
+        byte[] postData = postDataStr.getBytes();
+
+        InputStream stream = null;
+        try {
+            URL url = new URL(SAVE_URL);
+
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+            conn.setDoOutput(true);
+            conn.setRequestMethod("POST");
+            conn.setRequestProperty("Content-Length", Integer.toString(postData.length));
+            conn.setUseCaches(false);
+
+            OutputStream out = conn.getOutputStream();
+            out.write(postData);
+            out.close();
+
+            int responseCode = conn.getResponseCode();
+            if(responseCode != HttpURLConnection.HTTP_OK) {
+                return false;
+            }
+
+            stream = conn.getInputStream();
+
+            /**
+             * Create an XML parser for the result
+             */
+            try {
+                XmlPullParser xmlR = Xml.newPullParser();
+                xmlR.setInput(stream, UTF8);
+
+                xmlR.nextTag();      // Advance to first tag
+                xmlR.require(XmlPullParser.START_TAG, null, "hatter");
+
+                String status = xmlR.getAttributeValue(null, "status");
+                if(status.equals("no")) {
+                    return false;
+                }
+
+                // We are done
+            } catch(XmlPullParserException ex) {
+                return false;
+            } catch(IOException ex) {
+                return false;
+            }
+
+        } catch (MalformedURLException e) {
+            return false;
+        } catch (IOException ex) {
+            return false;
+        } finally {
+            if(stream != null) {
+                try {
+                    stream.close();
+                } catch(IOException ex) {
+                    // Fail silently
+                }
+            }
+        }
+
+        return true;
     }
 }

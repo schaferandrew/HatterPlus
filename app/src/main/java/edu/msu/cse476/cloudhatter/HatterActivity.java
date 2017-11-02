@@ -213,6 +213,10 @@ public class HatterActivity extends ActionBarActivity {
                 LoadDlg dlg2 = new LoadDlg();
                 dlg2.show(getFragmentManager(), "load");
                 return true;
+            case R.id.menu_save:
+                SaveDlg dlg3 = new SaveDlg();
+                dlg3.show(getFragmentManager(),"save");
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
