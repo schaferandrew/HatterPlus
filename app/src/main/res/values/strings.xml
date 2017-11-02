@@ -22,6 +22,7 @@
     <string name="menu_delete">Delete from cloud&#8230;</string>
     <string name="load_fm_title">Load from cloud</string>
     <string name="save_fm_title">Save from cloud</string>
+    <string name="delete_fm_title">Delete from cloud</string>
     <string name="dummy">Dummy</string>
     <string name="catalog_fail">Failed to load catalog of Hattings</string>
     <string name="loading">Loading</string>

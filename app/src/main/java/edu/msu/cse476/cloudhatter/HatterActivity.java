@@ -217,6 +217,9 @@ public class HatterActivity extends ActionBarActivity {
                 SaveDlg dlg3 = new SaveDlg();
                 dlg3.show(getFragmentManager(),"save");
                 return true;
+            case R.id.menu_delete:
+                DeleteDlg dlg4 = new DeleteDlg();
+                dlg4.show(getFragmentManager(),"delete");
         }
         return super.onOptionsItemSelected(item);
     }
