@@ -35,10 +35,27 @@ public class Cloud {
     private static final String USER = "schaf170";
     private static final String PASSWORD = "12345678";
     private static final String CATALOG_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-cat.php";
-    private static final String SAVE_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-save.php";
+    private static final String SAVE_URL = "http://webdev.cse.msu.edu/~schaf170/cse476/step6/hatter-save.php";
+    //Old Save URL for class server
+    // private static final String SAVE_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-save.php";
     private static final String DELETE_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-delete.php";
     private static final String LOAD_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-load.php";
     private static final String UTF8 = "UTF-8";
+
+    public static void logStream(InputStream stream) {
+        BufferedReader reader = new BufferedReader(
+                new InputStreamReader(stream));
+
+        Log.e("476", "logStream: If you leave this in, code after will not work!");
+        try {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                Log.e("476", line);
+            }
+        } catch (IOException ex) {
+            return;
+        }
+    }
 
     /**
      * Skip the XML parser to the end tag for whatever
@@ -110,7 +127,8 @@ public class Cloud {
 
                             @Override
                             public void run() {
-                                Toast.makeText(view.getContext(), R.string.catalog_fail, Toast.LENGTH_SHORT).show();
+                                Toast.makeText(view.getContext(),
+                                        R.string.catalog_fail, Toast.LENGTH_SHORT).show();
                             }
 
                         });
@@ -327,6 +345,8 @@ public class Cloud {
             }
 
             stream = conn.getInputStream();
+            //logStream(stream);
+
 
             /**
              * Create an XML parser for the result
