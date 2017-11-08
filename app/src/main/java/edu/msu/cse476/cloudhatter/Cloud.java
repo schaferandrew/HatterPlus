@@ -34,12 +34,12 @@ public class Cloud {
     private static final String MAGIC = "NechAtHa6RuzeR8x";
     private static final String USER = "schaf170";
     private static final String PASSWORD = "12345678";
-    private static final String CATALOG_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-cat.php";
+    private static final String CATALOG_URL = "http://webdev.cse.msu.edu/~schaf170/cse476/step6/hatter-cat.php";
     private static final String SAVE_URL = "http://webdev.cse.msu.edu/~schaf170/cse476/step6/hatter-save.php";
     //Old Save URL for class server
     // private static final String SAVE_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-save.php";
     private static final String DELETE_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-delete.php";
-    private static final String LOAD_URL = "https://facweb.cse.msu.edu/ameli/cse476x/hatter-load.php";
+    private static final String LOAD_URL = "http://webdev.cse.msu.edu/~schaf170/cse476/step6/hatter-load.php";
     private static final String UTF8 = "UTF-8";
 
     public static void logStream(InputStream stream) {
